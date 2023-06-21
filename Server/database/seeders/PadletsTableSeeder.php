@@ -23,7 +23,6 @@ class PadletsTableSeeder extends Seeder
         $padlet->name="Padlet Nummer 1";
         $padlet->is_public=true;
         $padlet->user_id=1;
-        $padlet->image='https://images.unsplash.com/photo-1460039230329-eb070fc6c77c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=735&q=80';
         $padlet->save();
 
         //add entries to padlet
@@ -45,14 +44,12 @@ class PadletsTableSeeder extends Seeder
         $padlet2->name="Padlet Nummer 2";
         $padlet2->is_public=true;
         $padlet2->user_id=1;
-        $padlet2->image='https://images.unsplash.com/photo-1460039230329-eb070fc6c77c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=735&q=80';
-        $padlet2->save();
+       $padlet2->save();
 
         $padlet3 = new Padlet();
         $padlet3->name="Padlet Nummer 3";
         $padlet3->is_public=true;
         $padlet3->user_id=1;
-        $padlet3->image='https://images.unsplash.com/photo-1460039230329-eb070fc6c77c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=735&q=80';
         $padlet3->save();
 
         //add comments
