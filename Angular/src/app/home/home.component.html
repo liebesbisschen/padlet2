@@ -1,0 +1,11 @@
+<h2 class="ui center aligned icon header ">
+  <i class="circular edit outline icon"></i> Öffentliche Padlets </h2>
+
+<!-- Gibt alle Padlets aus, die öffentlich sind -->
+  <div class="ui special cards" *ngFor="let padlet of padlets">
+  <a class="ui card bs-padlet-list-item" *ngIf="padlet.is_public == true" [padlet]="padlet"
+     [routerLink]="['../padlets', padlet.id]"> </a>
+
+</div>
+
+

@@ -1,0 +1,98 @@
+
+  <button class="ui tiny grey labeled icon button" *ngIf="authService.isLoggedIn()" [routerLink]="'/padlets'">
+    <i class="angle double left icon"></i>Zurück
+  </button>
+
+  <!-- Edit und Delete nur Sichtbar wenn Besitzer:in des Padlets -->
+  <div *ngIf="authService.isLoggedIn() && padlet.user_id == getCurrentUserId()">
+    <i class="pencil alternate icon" [routerLink]="['../../admin/', padlet.id]"></i>
+    <i class="minus circle icon" (click)="removePadlet()"></i>
+  </div>
+
+
+<div class="ui center aligned header segment">
+  <h1 class="ui header center aligned">{{ padlet.name }}</h1>
+  <span *ngIf="padlet.user_id">
+    <img class="ui avatar image" src="{{padlet.user?.image}}">{{ padlet.user?.firstName}} {{ padlet.user?.lastName}}
+    | <i class="icon calendar alternate"></i> {{padlet.created_at |  date:'mediumDate'}} |
+
+      <span *ngIf="padlet.is_public == false"><i class="lock icon"></i>Privat</span>
+      <span *ngIf="padlet.is_public == true"><i class="unlock icon"></i>Öffentlich</span>
+  </span>
+
+</div>
+
+
+<h3 class="ui header center aligned">Einträge</h3>
+
+  <!-- Neuer Eintrag kann nur erstellt werden, wenn eingeloggt -->
+  <button *ngIf="authService.isLoggedIn()" class="ui tiny blue button" [routerLink]="['../../admin/padlets', padlet.id, 'entries']">
+    <i class="pencil alternate icon"></i>Eintrag erstellen
+  </button>
+
+<div class="ui cards">
+  <div class="ui card" *ngFor="let entry of padlet.entries">
+    <div class="content">
+      <div class="header">{{entry?.title}}</div>
+      <div class="meta">
+        <span class="category">{{entry?.created_at   |  date:'mediumDate'}}</span>
+      </div>
+      <div class="description">
+        <p>{{entry?.content}}</p>
+      </div>
+    </div>
+    <div class="extra content">
+      <div class="right floated author">
+        <img class="ui avatar image" [src]="entry?.user?.image"> {{entry?.user?.firstName}}
+      </div>
+    </div>
+
+    <!--Wenn user eingeloggt ist, so kann er:sie den Entry bearbeiten oder löschen
+     NUR WENN OWNER PADLET ODER OWNER ENTRY-->
+    <div *ngIf="authService.isLoggedIn()  && entry.user_id == getCurrentUserId() || padlet.user_id == getCurrentUserId()" class="content">
+      <button *ngIf="authService.isLoggedIn()"
+              class="ui right floated icon button"
+              [routerLink]="['../../admin/padlets', padlet.id, 'entries', entry.id]">
+        <i class="edit icon"></i>
+      </button>
+      <button *ngIf="authService.isLoggedIn()"
+              class="ui right floated icon button" (click)="removeEntry(entry.id)">
+        Löschen
+      </button>
+    </div>
+
+    <!--Ratings -->
+    <div class="ui">
+      <h3 class="ui dividing header">Ratings</h3>
+      <div *ngFor="let rating of entry?.ratings" class="extra content">
+        {{rating.user.firstName}}:
+        <span *ngIf="rating.rating">
+        <i *ngFor="let r of getRating(rating.rating)" class="yellow star icon"></i>
+      </span>
+      </div>
+    </div>
+
+    <!--Kommentare -->
+    <div class="ui comments">
+      <h3 class="ui dividing header">Kommentare</h3>
+      <div class="ui comment" *ngFor="let comment of entry?.comments">
+        <a class="avatar">
+          <img [src]="comment?.user?.image">
+        </a>
+        <div class="content">
+          <a class="author">{{comment?.user?.firstName}} {{comment?.user?.lastName}}</a>
+          <div class="metadata">
+            <span class="date">{{comment?.created_at}}</span>
+          </div>
+          <div class="text">{{comment?.comment}}</div>
+
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+
+

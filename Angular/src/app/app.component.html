@@ -1,0 +1,8 @@
+<div class="ui {{ isLoggedIn() ? 'four' : 'two' }} item pointing menu">
+  <a routerLink="home" routerLinkActive="active" class="item">Öffentliche Padlets</a>
+  <a *ngIf="isLoggedIn()" routerLink="padlets" routerLinkActive="active" class="item">Eigene Padlets</a>
+  <div class="item">
+    <a routerLink="login" routerLinkActive="active" class="ui primary button ">{{ getLoginLabel() }}</a>
+  </div>
+</div>
+<router-outlet></router-outlet>

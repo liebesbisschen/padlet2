@@ -1,0 +1,24 @@
+<h1>
+  <div class="header">Eintrag Formular</div>
+</h1>
+<form class="ui large form" [formGroup]="entryForm"
+      (ngSubmit)="submitForm()">
+  <input type="hidden" formControlName="id">
+  <div class="field">
+    <label>Titel für Eintrag</label>
+    <input formControlName="title">
+    <div *ngIf="errors['title']" class="ui negative message"> {{
+      errors['title'] }} </div>
+    <br><br>
+
+    <label>Dein Eintrag</label>
+    <input formControlName="content">
+    <div *ngIf="errors['title']" class="ui negative message"> {{
+      errors['title'] }} </div>
+    <br><br>
+
+    <button type="submit" class="ui button"
+            [disabled]="entryForm.invalid">Speichern
+    </button>
+  </div>
+</form>

@@ -1,0 +1,22 @@
+<div class="ui center aligned header segment">
+  <h2 class="ui center aligned icon header ">
+    <i class="circular lock open icon"></i> Meine Padlets </h2>
+
+  <!-- Neues Padlet kann nur erstellt werden, wenn eingeloggt -->
+  <button *ngIf="authService.isLoggedIn()" class="ui tiny blue button" routerLink="../admin">
+    <i class="pencil alternate icon"></i>Padlet erstellen
+  </button>
+</div>
+
+<!-- Gibt alle eigenen Padlets aus / Egal ob privat oder öffentlich-->
+<div class="ui special cards" *ngFor="let padlet of padlets">
+  <a class="ui card bs-padlet-list-item" *ngIf="isLoggedIn() &&
+  padlet.user_id == getCurrentUserId()" [padlet]="padlet"
+     [routerLink]="[padlet.id]">
+  </a>
+</div>
+
+
+
+
+
